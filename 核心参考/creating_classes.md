@@ -4,7 +4,7 @@
 
 在很多面向对象系统中类是构建模块的基础。JavaScript(亦称ECMAScript3)各个版本中均不支持类，尽管在一些语法中原型链`prototype`对象和构造函数看起来很像类。在JavaScript中创建基于类的编程还是比较麻烦的，但是`JS.Class`可以将其简单化。
 
-生成一个类，只需要通过**new JS.Class()**即可，类的方法相当于JavaScript的常规函数。
+生成一个类，只需要通过 **new JS.Class()** 即可，类的方法相当于JavaScript的常规函数。
 
 	var Animal = new JS.Class({
 	    initialize: function(name) {
