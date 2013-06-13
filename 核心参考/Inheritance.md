@@ -6,9 +6,9 @@
 
 要弄明白Ruby的继承机制，必须要明白它是如何查找方法的。来自于《The Ruby Programming Language》和Ruby之父松本行弘的解释如下：
 
-> 当Ruby执行一个方法调用时，它首先找出被调用的方法。这个操作过程被称为方法寻找或方法名解析。例如方法调用表达式：**o.m**，Ruby会按照如下步骤进行解析：
+> 当Ruby执行一个方法调用时，它首先找出被调用的方法。这个操作过程被称为方法寻找或方法名解析。例如方法调用表达式： **o.m **，Ruby会按照如下步骤进行解析：
 
-> 1. 首先，它检验**o**的eigenclass中是否存在单例方法**m**.
+> 1. 首先，它检验 **o **的eigenclass中是否存在单例方法 **m **.
 
 > 2. 如果在eigenclass中没有找到m，那么Ruby就继续搜索o的类中是否存有名称为m的实例方法。
 
@@ -21,7 +21,7 @@
 ### 父子类继承关系 ###
 
 
-我们从基于类的继承开始讲起，因为这是最广泛普遍的理解。如果**Child**类继承于**Parent**类，那么**Child**类的方法可以通过**callSuper()**来调用**Parent**类中的同名方法。**Child**可以继承**Parent**类中的全部方法甚至在必要时可以进行重写操作。
+我们从基于类的继承开始讲起，因为这是最广泛普遍的理解。如果 **Child **类继承于 **Parent **类，那么 **Child **类的方法可以通过 **callSuper() **来调用 **Parent **类中的同名方法。 **Child **可以继承 **Parent **类中的全部方法甚至在必要时可以进行重写操作。
 
 	var Parent = new JS.Class({
 	    speak: function() {
@@ -45,7 +45,7 @@
 	(new Child).writeCode('function(){}')
 	// -> "I wrote: function(){}"
 
-> 这种继承类型在面向对象语言中都是普遍支持的而且容易理解：一个类只能有一个父类，同时可以调用父类中的所有方法。值得一提的是，和Ruby一样，JS.Class中**callSuper()**方法的参数也是可选的。默认情况下，会将子类方法参数完整地传递到父类方法中。更多信息可以查看**[Creating classes](creating_classes.md)**
+> 这种继承类型在面向对象语言中都是普遍支持的而且容易理解：一个类只能有一个父类，同时可以调用父类中的所有方法。值得一提的是，和Ruby一样，JS.Class中 **callSuper() **方法的参数也是可选的。默认情况下，会将子类方法参数完整地传递到父类方法中。更多信息可以查看 **[Creating classes](creating_classes.md) **
 
 ### 混入继承 ###
 
@@ -77,7 +77,7 @@
 	    }
 	});
 
-假设我们创建一个实例对象**new Foo()**并且调用**speak()**方法。在类Foo中包含了模块ModA和ModC，然后在ModC中又载入了ModB。所以当在Foo中寻找方法时，顺序为ModC，ModB，ModA。在每个阶段，`callSuper()`方法都会迫使在继承链中不断搜索。
+假设我们创建一个实例对象 **new Foo() **并且调用 **speak() **方法。在类Foo中包含了模块ModA和ModC，然后在ModC中又载入了ModB。所以当在Foo中寻找方法时，顺序为ModC，ModB，ModA。在每个阶段，`callSuper()`方法都会迫使在继承链中不断搜索。
 
 	(new Foo).speak()
 	// -> "speak() in ModA, speak() in ModB, and in ModC, and in class Foo"
@@ -126,7 +126,7 @@
 	    }
 	});
 
-`callSuper`会通向哪里呢？当我们在对象的`eigenclass`中寻找完后，再继续到对象所属的类中搜寻，在上面这个例子中就是指**Machine**类。所以，我们会得到：
+`callSuper`会通向哪里呢？当我们在对象的`eigenclass`中寻找完后，再继续到对象所属的类中搜寻，在上面这个例子中就是指 **Machine **类。所以，我们会得到：
 
 	obj.run()
 	// -> "Machine is running, and obj is running"
@@ -141,11 +141,11 @@
 	
 	obj.extend(MachineExtension);
 
-上面的代码例子中不能快速地明白`callSuper()`要做什么：因为**MachineExtension**既没有父类也没有载入任何的模块。由于Ruby的方法寻找规则是晚绑定的，也就是说**MachineExtension**中的`callSuper()`依赖于被使用的上下文。针对上段代码中最后一行你可以理解成等价于：
+上面的代码例子中不能快速地明白`callSuper()`要做什么：因为 **MachineExtension **既没有父类也没有载入任何的模块。由于Ruby的方法寻找规则是晚绑定的，也就是说 **MachineExtension **中的`callSuper()`依赖于被使用的上下文。针对上段代码中最后一行你可以理解成等价于：
 
 	obj.__eigen__().include(MachineExtension);
 
-那么，在对象的`eigenclass`中载入了模块**MachineExtension**，也就是令其成为了继承树的一部分。所以当调用`obj.run()`时，调用栈的顺序应该为obj.run -> MachineExtension#run -> Machine#run。相应的**Machine#run**返回了字符串“Machine is running”，而MachineExtension#run返回了大写，最后obj.run添加了字符串“, and obj is running”。
+那么，在对象的`eigenclass`中载入了模块 **MachineExtension **，也就是令其成为了继承树的一部分。所以当调用`obj.run()`时，调用栈的顺序应该为obj.run -> MachineExtension#run -> Machine#run。相应的 **Machine#run **返回了字符串“Machine is running”，而MachineExtension#run返回了大写，最后obj.run添加了字符串“, and obj is running”。
 
 	obj.run()
 	// -> "MACHINE IS RUNNING, and obj is running"

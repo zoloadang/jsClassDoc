@@ -4,7 +4,7 @@
 
 在很多面向对象系统中类是构建模块的基础。JavaScript(亦称ECMAScript3)各个版本中均不支持类，尽管在一些语法中原型链`prototype`对象和构造函数看起来很像类。在JavaScript中创建基于类的编程还是比较麻烦的，但是`JS.Class`可以将其简单化。
 
-生成一个类，只需要通过 **new JS.Class()** 即可，类的方法相当于JavaScript的常规函数。
+生成一个类，只需要通过  **new JS.Class() ** 即可，类的方法相当于JavaScript的常规函数。
 
 	var Animal = new JS.Class({
 	    initialize: function(name) {
@@ -37,15 +37,15 @@
 	    }
 	});
 
->  在Dog类中不需要`initialize()`方法，因为它继承于**Animal**类。然而，它选择重载了`speak()`方法。
+>  在Dog类中不需要`initialize()`方法，因为它继承于 **Animal **类。然而，它选择重载了`speak()`方法。
 
-现在我们注意到使用`JS.Class`生成了一个特殊的方法 -- **callSuper()**。这个方法在类方法中动态创建并可以通过它访问到父类中的同名方法。类似于Ruby，不用强制给callSuper()传递参数，因此避免了很多重复性动作。当前子类方法的参数会通过callSuper()自动传递给父类同名方法。
+现在我们注意到使用`JS.Class`生成了一个特殊的方法 --  **callSuper() **。这个方法在类方法中动态创建并可以通过它访问到父类中的同名方法。类似于Ruby，不用强制给callSuper()传递参数，因此避免了很多重复性动作。当前子类方法的参数会通过callSuper()自动传递给父类同名方法。
 
 	var rex = new Dog('Rex');
 	rex.speak('barking')
 	// -> "MY NAME IS REX AND I LIKE BARKING!"
 
-**注意：** `callSuper()`不能在对象外直接访问：
+ **注意： ** `callSuper()`不能在对象外直接访问：
 
 	rex.callSuper();
 	// -> rex.callSuper is not a function

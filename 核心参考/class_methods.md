@@ -35,13 +35,13 @@
 	    }
 	});
 
-上面这两种语法同样适用于创建和扩展[模块](./using_modules.md)。在类中的方法里使用的关键字`this`引用的是类本身 -- 可以通过**User.create()**方法来验证：
+上面这两种语法同样适用于创建和扩展[模块](./using_modules.md)。在类中的方法里使用的关键字`this`引用的是类本身 -- 可以通过 **User.create()**方法来验证：
 
 	var james = User.create('James');
 	james.username    // -> 'James'
 	james.klass       // -> User
 
-当创建了子类的时候，其会继承父类的任意类方法，而且可以通过**callSuper()**方法访问：
+当创建了子类的时候，其会继承父类的任意类方法，而且可以通过 **callSuper()**方法访问：
 
 	var LoudUser = new JS.Class(User, {
 	    extend: {
@@ -57,7 +57,7 @@
 	
 	var you = LoudUser.find(24)   // inherited from User
 
-需要注意的是子类中的 `this`，甚至使用 `callSuper`方法时，它的作用域永远都是指方法调用的地方。比如上面代码中我们返回的是**LoudUser**而不是**User**。
+需要注意的是子类中的 `this`，甚至使用 `callSuper`方法时，它的作用域永远都是指方法调用的地方。比如上面代码中我们返回的是 **LoudUser**而不是 **User**。
 
 另外注意一下，这里的类方法不同于`Java`中的静态方法；如果想要通过类实例来调用一个类方法时，必须要先通过实例对象的`klass`属性得到类引用。
 
